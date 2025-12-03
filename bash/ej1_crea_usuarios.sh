@@ -24,7 +24,7 @@ while [ $i -lt $total ]; do
     # ${!i} = expansión indirecta, toma el parámetro número i (si i=2, esto es $2)
     param="${!i}"   # obtiene el parámetro actual (ej: $1, $2, ...)
 
-    case "$parametro" in
+    case "$param" in
 
         # Opción -i = activar modo informativo
         -i)
@@ -51,7 +51,7 @@ while [ $i -lt $total ]; do
 
         # Cualquier otro texto antes del archivo → error
         *)
-            echo "Error: parámetro desconocido: $parametro" >&2
+            echo "Error: parámetro desconocido: $param" >&2
             exit 3
             ;;
     esac
@@ -61,9 +61,11 @@ done
 
 # Mostrar los resultados (solo para pruebas)
 echo "----- Resultados de los paramentros ----"
+echo "-------- (solo para pruebas) -----------"
 echo "Modo informativo: $modo_info"
 echo "Contraseña: ${password:+(proporcionada)}"
 echo "Archivo: $archivo"
+echo "---------------------------------------"
 
 # --- Validación del archivo ---
 # Verificar que el archivo existe
@@ -163,6 +165,7 @@ while IFS= read -r linea; do
             echo "Dir home: $home"
             echo "Asegurado existencia de directorio home: $crear_home"
             echo "Shell por defecto: $shell"
+            echo
         fi
 
         # Si hay contraseña, settearla
@@ -173,6 +176,7 @@ while IFS= read -r linea; do
     else
         if $modo_info; then
             echo "ATENCION: el usuario $user no pudo ser creado"
+            echo
         fi
     fi
 
@@ -182,3 +186,5 @@ done < "$archivo"
 if $modo_info; then
     echo "Se han creado $exito usuarios con éxito."
 fi
+
+
